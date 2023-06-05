@@ -1,4 +1,17 @@
-import Todo from "./components/todo";
+import Modal from './components/modal'
+import Todo from './components/todo'
+
+const TODOS = [
+  {
+    todo: 'Learn ReactJS'
+  },
+  {
+    todo: 'Explore ReactJS'
+  },
+  {
+    todo: 'Master ReactJS'
+  }
+]
 
 function App() {
   return (
@@ -7,18 +20,14 @@ function App() {
         MY TODOS
       </h1>
       <ul className="grid grid-cols-1 gap-4">
-        <li>
-          <Todo text="Learn ReactJS" />
-        </li>
-        <li>
-          <Todo text="Master ReactJS" />
-        </li>
-        <li>
-          <Todo text="Explore ReactJS" />
-        </li>
+        {TODOS.map((item, index) => (
+          <li key={index}>
+            <Todo text={item.todo} />
+          </li>
+        ))}
       </ul>
     </main>
-  );
+  )
 }
 
-export default App;
+export default App
