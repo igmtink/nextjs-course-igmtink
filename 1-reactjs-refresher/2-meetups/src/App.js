@@ -9,7 +9,7 @@ function App() {
   return (
     <main>
       <MainNavigation />
-      <section className="p-4">
+      <section className="p-4 max-w-2xl mx-auto">
         <Switch>
           <Route path="/" exact={true}>
             <AllMeetupsPage />
