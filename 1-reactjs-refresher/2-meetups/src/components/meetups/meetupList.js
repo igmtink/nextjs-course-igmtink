@@ -1,30 +1,45 @@
+import { useCallback, useEffect, useState } from "react";
 import MeetupItem from "./meetupItem";
 
-const DUMMY_DATA = [
-  {
-    id: "m1",
-    title: "This is a first meetup",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg",
-    address: "Meetupstreet 5, 12345 Meetup City",
-    description:
-      "This is a first, amazing meetup which you definitely should not miss. It will be a lot of fun!",
-  },
-  {
-    id: "m2",
-    title: "This is a second meetup",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg",
-    address: "Meetupstreet 5, 12345 Meetup City",
-    description:
-      "This is a second meetup, amazing meetup which you definitely should not miss. It will be a lot of fun!",
-  },
-];
-
 function MeetupList() {
+  const [isLoading, setIsLoading] = useState(true)
+  const [loadedMeetups, setLoadedMeetups] = useState([])
+  
+  const fetchMeetupList = useCallback( async () => {
+    try {
+      const res = await fetch('https://reactjs-meetup-a24a9-default-rtdb.firebaseio.com/meetups.json')
+      const data = await res.json()
+      
+      const meetups = []
+      for (const key in data) {
+        const meetup = {
+          id: key,
+          ...data[key]
+        }
+
+        meetups.push(meetup)
+      }
+
+      setIsLoading(false)
+      setLoadedMeetups(meetups)
+    } catch (error) {
+      console.log(error)
+    }
+  }, [])
+
+  useEffect(() => {
+    fetchMeetupList()
+  }, [fetchMeetupList])
+
+  if (isLoading) {
+    return <div className="fixed inset-0 flex justify-center items-center">
+      <span className="text-4xl font-bold text-center">Loading...</span>
+    </div>
+  }
+
   return (
     <ul className="grid grid-cols-1 gap-4">
-      {DUMMY_DATA.map((meetup) => {
+      {loadedMeetups.map((meetup) => {
         return (
           <li key={meetup.id}>
             <MeetupItem

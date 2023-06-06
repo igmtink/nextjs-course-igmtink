@@ -16,7 +16,6 @@ function NewMeetupForm({onAddMeetup}) {
     const enteredDescription = descriptionInputRef.current.value;
 
     const meetupData = {
-      id: Math.random() * 6,
       image: enteredImage,
       title: enteredTitle,
       address: enteredAddress,
