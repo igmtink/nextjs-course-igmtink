@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 function MainNavigation() {
   return (
+    
     <header className="p-4 bg-stone-950 text-stone-50">
       <nav className="flex justify-between items-center max-w-4xl mx-auto">
         <h1 className="font-bold text-lg">Meetups</h1>
