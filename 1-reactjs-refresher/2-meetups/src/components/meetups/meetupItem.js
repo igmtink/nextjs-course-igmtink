@@ -1,4 +1,4 @@
-import { Card } from "../layout/ui";
+import { Card } from '../layout/ui'
 
 function MeetupItem({ id, image, title, address, description }) {
   return (
@@ -17,7 +17,7 @@ function MeetupItem({ id, image, title, address, description }) {
         </div>
       </div>
     </Card>
-  );
+  )
 }
 
-export default MeetupItem;
+export default MeetupItem

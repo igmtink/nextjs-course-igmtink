@@ -1,26 +1,26 @@
-import NewMeetupForm from "../components/meetups/newMeetupForm";
-import { useHistory } from "react-router-dom";
+import NewMeetupForm from '../components/meetups/newMeetupForm'
+import { useHistory } from 'react-router-dom'
 
 function NewMeetupPage() {
   const navigate = useHistory()
   const meetupDataHandler = async (meetupData) => {
     try {
       await fetch(
-        "https://reactjs-meetup-a24a9-default-rtdb.firebaseio.com/meetups.json",
+        'https://reactjs-meetup-a24a9-default-rtdb.firebaseio.com/meetups.json',
         {
-          method: "POST",
+          method: 'POST',
           body: JSON.stringify(meetupData),
           headers: {
-            "Content-Type": "application/json",
-          },
+            'Content-Type': 'application/json'
+          }
         }
-      );
+      )
     } catch (error) {
-      console.log(error);
+      console.log(error)
     } finally {
       navigate.replace('/')
     }
-  };
+  }
 
   return (
     <div>
@@ -29,7 +29,7 @@ function NewMeetupPage() {
       </h1>
       <NewMeetupForm onAddMeetup={meetupDataHandler} />
     </div>
-  );
+  )
 }
 
-export default NewMeetupPage;
+export default NewMeetupPage

@@ -1,5 +1,11 @@
 function FavoritesPage() {
-  return <div>Favorites Page</div>;
+  return (
+    <div>
+      <h1 className="text-2xl font-bold uppercase mb-8 text-center">
+        Favorites
+      </h1>
+    </div>
+  )
 }
 
-export default FavoritesPage;
+export default FavoritesPage

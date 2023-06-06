@@ -1,15 +1,17 @@
-import { useCallback, useEffect, useState } from "react";
-import MeetupItem from "./meetupItem";
+import { useCallback, useEffect, useState } from 'react'
+import MeetupItem from './meetupItem'
 
 function MeetupList() {
   const [isLoading, setIsLoading] = useState(true)
   const [loadedMeetups, setLoadedMeetups] = useState([])
-  
-  const fetchMeetupList = useCallback( async () => {
+
+  const fetchMeetupList = useCallback(async () => {
     try {
-      const res = await fetch('https://reactjs-meetup-a24a9-default-rtdb.firebaseio.com/meetups.json')
+      const res = await fetch(
+        'https://reactjs-meetup-a24a9-default-rtdb.firebaseio.com/meetups.json'
+      )
       const data = await res.json()
-      
+
       const meetups = []
       for (const key in data) {
         const meetup = {
@@ -32,9 +34,11 @@ function MeetupList() {
   }, [fetchMeetupList])
 
   if (isLoading) {
-    return <div className="fixed inset-0 flex justify-center items-center">
-      <span className="text-4xl font-bold text-center">Loading...</span>
-    </div>
+    return (
+      <div className="fixed inset-0 flex justify-center items-center">
+        <span className="text-4xl font-bold text-center">Loading...</span>
+      </div>
+    )
   }
 
   return (
@@ -50,10 +54,10 @@ function MeetupList() {
               description={meetup.description}
             />
           </li>
-        );
+        )
       })}
     </ul>
-  );
+  )
 }
 
-export default MeetupList;
+export default MeetupList

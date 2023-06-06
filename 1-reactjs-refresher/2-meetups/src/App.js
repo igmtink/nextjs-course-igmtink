@@ -1,9 +1,9 @@
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch } from 'react-router-dom'
 
-import AllMeetupsPage from "./pages/allMeetups";
-import FavoritesPage from "./pages/favorites";
-import NewMeetupPage from "./pages/newMeetup";
-import MainNavigation from "./components/layout/mainNavigation";
+import AllMeetupsPage from './pages/allMeetups'
+import FavoritesPage from './pages/favorites'
+import NewMeetupPage from './pages/newMeetup'
+import MainNavigation from './components/layout/mainNavigation'
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
         </Switch>
       </section>
     </main>
-  );
+  )
 }
 
-export default App;
+export default App
