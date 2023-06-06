@@ -1,9 +1,11 @@
-function MeetupItem({id, image, title, address, description }) {
+import { Card } from "../layout/ui";
+
+function MeetupItem({ id, image, title, address, description }) {
   return (
-    <div className="bg-stone-50 rounded-lg shadow-md overflow-hidden">
+    <Card>
       <img className="w-full" src={image} alt={title} />
       <div className="p-4">
-        <div className='mb-4'>
+        <div className="mb-4">
           <h2 className="uppercase font-bold text-md">{title}</h2>
           <h3 className="mb-4 text-sm">{address}</h3>
           <p>{description}</p>
@@ -14,7 +16,7 @@ function MeetupItem({id, image, title, address, description }) {
           </button>
         </div>
       </div>
-    </div>
+    </Card>
   );
 }
 
