@@ -35,6 +35,24 @@ export default function Clients() {
           </li>
         ))}
       </ul>
+
+      {/* OR */}
+
+      <ul>
+        {clients.map((client) => (
+          <li key={client.id}>
+            {/* DIFFERENT WAY OF SETTING LINK HREFS */}
+            <Link
+              href={{
+                pathname: '/clients/[id]',
+                query: { id: client.id }
+              }}
+            >
+              {client.name}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
