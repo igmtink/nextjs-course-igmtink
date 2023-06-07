@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 
 const FavoritesContext = createContext({
   favorites: [],
@@ -11,21 +11,44 @@ const FavoritesContext = createContext({
 export default FavoritesContext
 
 export function FavoritesContextProvider({ children }) {
-  const [userFavorites, setUserFavorites] = useState([])
+  const [userFavorites, setUserFavorites] = useState(() => {
+    // const myFavorites = localStorage.getItem('myFavorites')
+    // return myFavorites ? JSON.parse(myFavorites) : []
+
+    return JSON.parse(localStorage.getItem('myFavorites')) || []
+  })
+
+  useEffect(() => {
+    localStorage.getItem('myFavorites', JSON.stringify(userFavorites))
+  }, [userFavorites])
 
   const addFavoriteHandler = (favoriteMeetup) => {
     // setUserFavorites(userFavorites.concat(favoriteMeetup))
     // setUserFavorites((prevUserFavorites) => {
     //   return prevUserFavorites.concat(favoriteMeetup)
     // })
+    // setUserFavorites((prevUserFavorites) => {
+    //   return [...prevUserFavorites, favoriteMeetup]
+    // })
+
     setUserFavorites((prevUserFavorites) => {
-      return [...prevUserFavorites, favoriteMeetup]
+      const newFavorites = [...prevUserFavorites, favoriteMeetup]
+      localStorage.setItem('myFavorites', JSON.stringify(newFavorites))
+      return newFavorites
     })
   }
 
   const removeFavoriteHandler = (meetupId) => {
+    // setUserFavorites((prevUserFavorites) => {
+    //   return prevUserFavorites.filter((meetup) => meetup.id !== meetupId)
+    // })
+
     setUserFavorites((prevUserFavorites) => {
-      return prevUserFavorites.filter((meetup) => meetup.id !== meetupId)
+      const newFavorites = prevUserFavorites.filter(
+        (meetup) => meetup.id !== meetupId
+      )
+      localStorage.setItem('myFavorites', JSON.stringify(newFavorites))
+      return newFavorites
     })
   }
 
