@@ -3,7 +3,7 @@ import Link from 'next/link'
 export const Button = ({ children, link }) => {
   return (
     <Link
-      className="block w-fit px-3 py-2 bg-teal-500 hover:bg-teal-600 transition-colors rounded-md"
+      className="flex gap-2 w-fit px-4 py-3 bg-teal-500 hover:bg-teal-600 transition-colors rounded-md"
       href={link}
     >
       {children}
