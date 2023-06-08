@@ -10,13 +10,15 @@ export default function EventItem({ id, title, date, location, image }) {
   const exploreLink = `/events/${id}`
 
   return (
-    <li className="shadow-lg rounded-lg overflow-hidden bg-teal-200">
-      <img src={`/${image}`} alt={title} />
+    <li className="sm:flex shadow-lg rounded-lg overflow-hidden bg-teal-200">
+      <img className="sm:w-1/2" src={`/${image}`} alt={title} />
       <div className="p-4">
         <div className="mb-6">
           <h2 className="text-lg font-bold uppercase mb-2">{title}</h2>
-          <time>{formattedDate}</time>
-          <address>{formattedAddress}</address>
+          <time className="mb-2 block font-medium">{formattedDate}</time>
+          <address className="block whitespace-pre-wrap">
+            {formattedAddress}
+          </address>
         </div>
         <div>
           <Link
