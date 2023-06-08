@@ -2,7 +2,7 @@ import EventItem from './event-item'
 
 export default function EventList({ items }) {
   return (
-    <ul>
+    <ul className="grid grid-cols-1 gap-4">
       {items.map((event) => (
         <EventItem
           key={event.id}
