@@ -18,11 +18,11 @@ export default function EventItem({ id, title, date, location, image }) {
       <div className="px-6 py-4 w-full">
         <div className="mb-6">
           <h2 className="text-lg font-bold uppercase mb-2">{title}</h2>
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-2 items-center mb-2 text-stone-700">
             <DateIcon />
-            <time className="mb-2 block font-medium">{formattedDate}</time>
+            <time className="block font-medium">{formattedDate}</time>
           </div>
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-2 items-center text-stone-500">
             <LocationIcon />
             <address className="whitespace-pre">{formattedAddress}</address>
           </div>
