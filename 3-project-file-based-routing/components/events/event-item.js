@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Button, Card } from '../ui/igmtink'
 
 export default function EventItem({ id, title, date, location, image }) {
   const formattedDate = new Date(date).toLocaleDateString('en-US', {
@@ -10,7 +11,7 @@ export default function EventItem({ id, title, date, location, image }) {
   const exploreLink = `/events/${id}`
 
   return (
-    <li className="sm:flex shadow-lg rounded-lg overflow-hidden bg-teal-200">
+    <Card>
       <img className="sm:w-[40%] object-cover" src={`/${image}`} alt={title} />
       <div className="px-6 py-4 w-full">
         <div className="mb-6">
@@ -19,14 +20,9 @@ export default function EventItem({ id, title, date, location, image }) {
           <address className="whitespace-pre">{formattedAddress}</address>
         </div>
         <div className="flex justify-end">
-          <Link
-            className="block w-fit px-3 py-2 bg-teal-500 hover:bg-teal-600 transition-colors rounded-md"
-            href={exploreLink}
-          >
-            Explore Event
-          </Link>
+          <Button link={exploreLink}>Explore Event</Button>
         </div>
       </div>
-    </li>
+    </Card>
   )
 }
