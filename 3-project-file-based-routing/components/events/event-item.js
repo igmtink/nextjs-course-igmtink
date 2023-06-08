@@ -11,18 +11,16 @@ export default function EventItem({ id, title, date, location, image }) {
 
   return (
     <li className="sm:flex shadow-lg rounded-lg overflow-hidden bg-teal-200">
-      <img className="sm:w-1/2" src={`/${image}`} alt={title} />
-      <div className="p-4">
+      <img className="sm:w-[40%] object-cover" src={`/${image}`} alt={title} />
+      <div className="px-6 py-4 w-full">
         <div className="mb-6">
           <h2 className="text-lg font-bold uppercase mb-2">{title}</h2>
           <time className="mb-2 block font-medium">{formattedDate}</time>
-          <address className="block whitespace-pre-wrap">
-            {formattedAddress}
-          </address>
+          <address className="whitespace-pre">{formattedAddress}</address>
         </div>
-        <div>
+        <div className="flex justify-end">
           <Link
-            className="block w-fit mx-auto px-3 py-2 bg-teal-500 hover:bg-teal-600 transition-colors rounded-md"
+            className="block w-fit px-3 py-2 bg-teal-500 hover:bg-teal-600 transition-colors rounded-md"
             href={exploreLink}
           >
             Explore Event
