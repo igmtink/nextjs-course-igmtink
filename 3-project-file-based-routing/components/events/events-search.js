@@ -1,17 +1,17 @@
 import { useState } from 'react'
 
 export default function EventsSearch({ options, select }) {
-  const [selectedOption, setSelectedOption] = useState('')
-  const [dropdownOpen, setDropdownOpen] = useState(false)
+  // const [selectedOption, setSelectedOption] = useState('')
+  // const [dropdownOpen, setDropdownOpen] = useState(false)
 
-  const dropdownToggleHandler = () => {
-    setDropdownOpen((prevState) => !prevState)
-  }
+  // const dropdownToggleHandler = () => {
+  //   setDropdownOpen((prevState) => !prevState)
+  // }
 
-  const optionSelectHandler = (option) => {
-    setSelectedOption(option)
-    setDropdownOpen(false)
-  }
+  // const optionSelectHandler = (option) => {
+  //   setSelectedOption(option)
+  //   setDropdownOpen(false)
+  // }
 
   return (
     <form>
