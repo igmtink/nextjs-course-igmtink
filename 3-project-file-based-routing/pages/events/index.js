@@ -1,6 +1,7 @@
 import EventList from '@/components/events/event-list'
 import EventsSearch from '@/components/events/events-search'
 import { getAllEvents } from '@/dummy-data'
+import { useRouter } from 'next/router'
 
 // const EVENTS_FILTER_YEAR = ['2021', '2022', '2023']
 // const EVENTS_FILTER_MONTH = [
@@ -20,6 +21,13 @@ import { getAllEvents } from '@/dummy-data'
 
 export default function Events() {
   const events = getAllEvents()
+  const router = useRouter()
+
+  const onSearchHandler = (selectedYear, selectedMonth) => {
+    const fullPath = `/events/${selectedYear}/${selectedMonth}`
+    router.push(fullPath)
+  }
+
   return (
     <div className="p-4 pt-20 max-w-2xl mx-auto grid grid-cols-1 gap-4">
       {/* <div className="grid grid-cols-2 items-center mb-4">
@@ -33,7 +41,7 @@ export default function Events() {
         </div>
       </div> */}
 
-      <EventsSearch />
+      <EventsSearch onSearch={onSearchHandler} />
 
       <EventList items={events} />
     </div>

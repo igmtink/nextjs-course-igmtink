@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { Button } from '../ui/igmtink'
+import { useRef } from 'react'
 
 const optionsYear = ['2021', '2022', '2023']
 const optionsMonth = [
@@ -17,7 +16,7 @@ const optionsMonth = [
   'December'
 ]
 
-export default function EventsSearch() {
+export default function EventsSearch({ onSearch }) {
   // const [selectedOption, setSelectedOption] = useState('')
   // const [dropdownOpen, setDropdownOpen] = useState(false)
 
@@ -30,8 +29,23 @@ export default function EventsSearch() {
   //   setDropdownOpen(false)
   // }
 
+  const yearInputRef = useRef()
+  const monthInputRef = useRef()
+
+  const submitHandler = (event) => {
+    event.preventDefault()
+
+    const selectedYear = yearInputRef.current.value
+    const selectedMonth = monthInputRef.current.value
+
+    onSearch(selectedYear, selectedMonth)
+  }
+
   return (
-    <form className="flex justify-between bg-white p-4 rounded-lg shadow-lg">
+    <form
+      onSubmit={submitHandler}
+      className="flex justify-between bg-white p-4 rounded-lg shadow-lg"
+    >
       {/* <div className="relative">
         <div
           className="border border-black bg-white cursor-pointer p-1 rounded-lg shadow-lg w-28 max-w-full"
@@ -57,6 +71,7 @@ export default function EventsSearch() {
       <div className="flex items-center gap-2">
         <label htmlFor="year">Year</label>
         <select
+          ref={yearInputRef}
           id="year"
           className="p-1 shadow-lg rounded-md border border-black"
         >
@@ -70,7 +85,11 @@ export default function EventsSearch() {
 
       <div className="flex items-center gap-2">
         <label htmlFor="month">Month</label>
-        <select id="month" className="p-1 rounded-md border border-black">
+        <select
+          ref={monthInputRef}
+          id="month"
+          className="p-1 rounded-md border border-black"
+        >
           {optionsMonth.map((option, index) => (
             <option key={index} value={option}>
               {option}
