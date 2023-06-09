@@ -2,7 +2,6 @@ import DateIcon from '@/components/icons/date-icon'
 import LocationIcon from '@/components/icons/location-icon'
 import { getEventById } from '@/dummy-data'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
 
 export default function EventDetail() {
   const router = useRouter()
