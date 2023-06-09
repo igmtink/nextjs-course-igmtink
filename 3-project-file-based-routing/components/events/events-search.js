@@ -15,7 +15,7 @@ export default function EventsSearch({ options, select }) {
 
   return (
     <form>
-      <div className="relative">
+      {/* <div className="relative">
         <div
           className="border border-black bg-white cursor-pointer p-1 rounded-lg shadow-lg w-28 max-w-full"
           onClick={dropdownToggleHandler}
@@ -35,7 +35,7 @@ export default function EventsSearch({ options, select }) {
             ))}
           </ul>
         )}
-      </div>
+      </div> */}
     </form>
   )
 }
