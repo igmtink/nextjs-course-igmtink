@@ -29,7 +29,7 @@ export default function EventDetail() {
     return (
       <div>
         <img
-          className="object-cover"
+          className="object-cover w-full sm:h-80 md:h-96"
           src={`/${event.image}`}
           alt={event.title}
         />
