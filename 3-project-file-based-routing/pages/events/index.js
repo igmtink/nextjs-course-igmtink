@@ -2,21 +2,21 @@ import EventList from '@/components/events/event-list'
 import EventsSearch from '@/components/events/events-search'
 import { getAllEvents } from '@/dummy-data'
 
-const EVENTS_FILTER_YEAR = ['2021', '2022', '2023']
-const EVENTS_FILTER_MONTH = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December'
-]
+// const EVENTS_FILTER_YEAR = ['2021', '2022', '2023']
+// const EVENTS_FILTER_MONTH = [
+//   'January',
+//   'February',
+//   'March',
+//   'April',
+//   'May',
+//   'June',
+//   'July',
+//   'August',
+//   'September',
+//   'October',
+//   'November',
+//   'December'
+// ]
 
 export default function Events() {
   const events = getAllEvents()

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function EventsSearch({ options, select }) {
+export default function EventsSearch() {
   // const [selectedOption, setSelectedOption] = useState('')
   // const [dropdownOpen, setDropdownOpen] = useState(false)
 
