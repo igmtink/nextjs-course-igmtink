@@ -27,7 +27,7 @@ export default function EventDetail() {
     const formattedAddress = event.location.replace(', ', '\n')
 
     return (
-      <div>
+      <div className="pt-14">
         <img
           className="object-cover w-full sm:h-80 md:h-96"
           src={`/${event.image}`}
