@@ -14,7 +14,7 @@ export default function EventsSearch({ options, select }) {
   }
 
   return (
-    <form className="mb-2">
+    <form>
       <div className="relative">
         <div
           className="border border-black bg-white cursor-pointer p-2 rounded-lg shadow-lg"
