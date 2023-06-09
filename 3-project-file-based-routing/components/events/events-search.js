@@ -14,19 +14,28 @@ export default function EventsSearch({ options }) {
   }
 
   return (
-    <div>
-      <div onClick={dropdownToggleHandler}>
-        {selectedOption ? selectedOption : 'Select date'}
+    <form className="mb-2">
+      <div className="relative">
+        <div
+          className="border border-black bg-white cursor-pointer p-2 rounded-lg shadow-lg"
+          onClick={dropdownToggleHandler}
+        >
+          {selectedOption ? selectedOption : 'Select date'}
+        </div>
+        {dropdownOpen && (
+          <ul className="border border-black bg-white overflow-hidden rounded-lg shadow-lg absolute inset-x-0 translate-y-2">
+            {options.map((option, index) => (
+              <li
+                className="cursor-pointer p-2 hover:bg-black/10 transition-colors"
+                key={index}
+                onClick={() => optionSelectHandler(option)}
+              >
+                {option}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
-      {dropdownOpen && (
-        <ul>
-          {options.map((option, index) => (
-            <li key={index} onClick={optionSelectHandler}>
-              {option}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+    </form>
   )
 }
