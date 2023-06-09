@@ -31,7 +31,7 @@ export default function EventsSearch() {
   // }
 
   return (
-    <form className="flex justify-between">
+    <form className="flex justify-between bg-white p-4 rounded-lg shadow-lg">
       {/* <div className="relative">
         <div
           className="border border-black bg-white cursor-pointer p-1 rounded-lg shadow-lg w-28 max-w-full"
@@ -56,7 +56,10 @@ export default function EventsSearch() {
 
       <div className="flex items-center gap-2">
         <label htmlFor="year">Year</label>
-        <select id="year" className="p-1 rounded-md border border-black">
+        <select
+          id="year"
+          className="p-1 shadow-lg rounded-md border border-black"
+        >
           {optionsYear.map((option, index) => (
             <option key={index} value={option}>
               {option}
