@@ -91,7 +91,7 @@ export default function EventsSearch({ onSearch }) {
           className="p-1 rounded-md border border-black"
         >
           {optionsMonth.map((option, index) => (
-            <option key={index} value={option}>
+            <option key={index} value={index + 1}>
               {option}
             </option>
           ))}
