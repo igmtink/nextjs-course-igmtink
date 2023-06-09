@@ -33,6 +33,8 @@ export default function Events() {
         </div>
       </div> */}
 
+      <EventsSearch />
+
       <EventList items={events} />
     </div>
   )
