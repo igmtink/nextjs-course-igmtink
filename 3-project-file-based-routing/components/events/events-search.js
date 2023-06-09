@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function EventsSearch({ options }) {
+export default function EventsSearch({ options, select }) {
   const [selectedOption, setSelectedOption] = useState('')
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
@@ -20,7 +20,7 @@ export default function EventsSearch({ options }) {
           className="border border-black bg-white cursor-pointer p-2 rounded-lg shadow-lg"
           onClick={dropdownToggleHandler}
         >
-          {selectedOption ? selectedOption : 'Select date'}
+          {selectedOption ? selectedOption : select}
         </div>
         {dropdownOpen && (
           <ul className="border border-black bg-white overflow-hidden rounded-lg shadow-lg absolute inset-x-0 translate-y-2">
