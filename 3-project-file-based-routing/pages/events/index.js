@@ -21,7 +21,7 @@ import { getAllEvents } from '@/dummy-data'
 export default function Events() {
   const events = getAllEvents()
   return (
-    <div className="p-4 pt-20">
+    <div className="p-4 pt-20 grid grid-cols-1 gap-4">
       {/* <div className="grid grid-cols-2 items-center mb-4">
         <div className="flex gap-2 items-center">
           <label>Year</label>
