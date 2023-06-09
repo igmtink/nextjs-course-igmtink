@@ -1,11 +1,10 @@
-import Navigation from '@/components/layout/navigation'
+import Layout from '@/components/layout/layout'
 import '@/styles/globals.css'
 
 export default function App({ Component, pageProps }) {
   return (
-    <>
-      <Navigation />
+    <Layout>
       <Component {...pageProps} />
-    </>
+    </Layout>
   )
 }
