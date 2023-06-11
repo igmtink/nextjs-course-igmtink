@@ -11,7 +11,7 @@ export default function Home({ products }) {
   )
 }
 
-export async function getStaticProps() {
+export async function getStaticProps(context) {
   console.log('(Re-)Generating...')
 
   // path.join(process.cwd()) to get our current working directory (root folder)
@@ -20,6 +20,22 @@ export async function getStaticProps() {
   const jsonData = await fs.readFile(filePath)
   // return an Object
   const data = JSON.parse(jsonData)
+
+  // Check if there is no data on database
+  // redirect: { destination: 'url' }, this kind of case can be use
+  if (!data) {
+    return {
+      redirect: {
+        destination: '/no-data'
+      }
+    }
+  }
+
+  // Check if there is no item on data
+  // notFound: true, this kind of case can be use
+  if (data.products.length === 0) {
+    return { notFound: true }
+  }
 
   return {
     props: {
