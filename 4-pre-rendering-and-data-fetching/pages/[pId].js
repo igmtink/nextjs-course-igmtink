@@ -10,6 +10,22 @@ export default function ProductDetail({ loadedProduct }) {
   )
 }
 
+export async function getStaticPaths() {
+  const filePath = path.join(process.cwd(), 'data', 'dummy-backend.json')
+  const jsonData = await fs.readFile(filePath)
+  const data = JSON.parse(jsonData)
+  const paths = data.products.map(product => ({
+    params: {
+      pId: product.id
+    }
+  }))
+
+  return {
+    paths,
+    fallback: false
+  }
+}
+
 export async function getStaticProps(context) {
   const { params } = context
 
