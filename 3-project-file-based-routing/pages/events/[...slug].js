@@ -1,4 +1,6 @@
+import ResultsTitle from '@/components/events/results-title.js'
 import EventList from '@/components/events/event-list'
+import { Button } from '@/components/ui/igmtink'
 import { getFilteredEvents } from '@/dummy-data'
 import { useRouter } from 'next/router'
 
@@ -31,8 +33,9 @@ export default function FilteredEvents() {
     numMonth > 12
   ) {
     return (
-      <div className="fixed inset-0 flex justify-center items-center">
+      <div className="fixed flex-col gap-4 inset-0 flex justify-center items-center">
         <p>Invalid filter. Please adjust your values!</p>
+        <Button link="/events">Show All Events</Button>
       </div>
     )
   }
@@ -44,14 +47,18 @@ export default function FilteredEvents() {
 
   if (!filteredEvents || filteredEvents.length === 0) {
     return (
-      <div className="fixed inset-0 flex justify-center items-center">
+      <div className="fixed flex-col gap-4 inset-0 flex justify-center items-center">
         <p>No events found for the chosen filter!</p>
+        <Button link="/events">Show All Events</Button>
       </div>
     )
   }
 
+  const date = new Date(numYear, numMonth - 1)
+
   return (
-    <div className="p-4 pt-20 max-w-2xl mx-auto">
+    <div className="p-4 pt-20 max-w-2xl mx-auto grid grid-cols-1 gap-12">
+      <ResultsTitle date={date} />
       <EventList items={filteredEvents} />
     </div>
   )
