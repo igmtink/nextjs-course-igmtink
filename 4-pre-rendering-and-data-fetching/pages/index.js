@@ -12,6 +12,8 @@ export default function Home({ products }) {
 }
 
 export async function getStaticProps() {
+  console.log('(Re-)Generating...')
+
   // path.join(process.cwd()) to get our current working directory (root folder)
   const filePath = path.join(process.cwd(), 'data', 'dummy-backend.json')
   // fs.readFile() to read inside our file
@@ -22,6 +24,7 @@ export async function getStaticProps() {
   return {
     props: {
       products: data.products
-    }
+    },
+    revalidate: 10
   }
 }
