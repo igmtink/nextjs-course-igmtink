@@ -4,6 +4,7 @@ import fs from 'fs/promises'
 export default function ProductDetail({ loadedProduct }) {
   // fallback: true
   // If we added new path on getStaticPaths it will show this loading because (fallback: true) it will not pre-generate the new path
+  // It will load this first to wait to be pre-generated the page because using fallback: true is telling Next JS to be manual pre-generate the page
   if (!loadedProduct) {
     return <span className="text-lg text-center font-bold">Loading...</span>
   }
@@ -62,6 +63,11 @@ export async function getStaticProps(context) {
   const data = JSON.parse(jsonData)
 
   const product = data.products.find(product => product.id === productId)
+
+  // It also useful if our fallback is true
+  if (!product) {
+    return { notFound: true }
+  }
 
   return {
     props: {
