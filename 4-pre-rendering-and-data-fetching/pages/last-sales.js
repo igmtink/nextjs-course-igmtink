@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
 import useSWR from 'swr'
 
-export default function LastSales() {
-  const [sales, setSales] = useState()
+export default function LastSales(props) {
+  const [sales, setSales] = useState(props.sales)
   // const [isLoading, setIsLoading] = useState(false)
 
+  // Combining Pre-fetching (getStaticProps) & Client-Side Fetching even we don't use (revalidate) in (getStaticProps) we get always the latest data
+  // But the latest data that we fetched on Client-Side we will not see on the View Source Browser, that's why we need the (revalidate)
   const fetcher = (...args) => fetch(...args).then(res => res.json())
+  // Using useSWR hook for fetching data, it will automatically refresh the data from client side whenever there's a changes on data
   const { data, error, isLoading } = useSWR(
     'https://nextjs-clientside-data-fetch-default-rtdb.firebaseio.com/sales.json',
     fetcher
@@ -63,13 +66,14 @@ export default function LastSales() {
     )
   }
 
-  if (!sales) {
-    return (
-      <div className="fixed inset-0 flex justify-center items-center">
-        <h1 className="text-4xl font-bold">NO DATA YET</h1>
-      </div>
-    )
-  }
+  // We don't need this anymore if we use getStaticProps
+  // if (!sales) {
+  //   return (
+  //     <div className="fixed inset-0 flex justify-center items-center">
+  //       <h1 className="text-4xl font-bold">NO DATA YET</h1>
+  //     </div>
+  //   )
+  // }
 
   if (isLoading) {
     return (
@@ -89,4 +93,31 @@ export default function LastSales() {
       ))}
     </ul>
   )
+}
+
+const getData = async () => {
+  const res = await fetch(
+    'https://nextjs-clientside-data-fetch-default-rtdb.firebaseio.com/sales.json'
+  )
+  const data = await res.json()
+
+  const transformedSalesData = []
+
+  for (const key in data) {
+    transformedSalesData.push({
+      id: key,
+      username: data[key].username,
+      volume: data[key].volume
+    })
+  }
+
+  return transformedSalesData
+}
+
+export async function getStaticProps() {
+  const jsonData = await getData()
+  return {
+    props: { sales: jsonData },
+    revalidate: 10
+  }
 }
