@@ -1,43 +1,64 @@
 import { useEffect, useState } from 'react'
+import useSWR from 'swr'
 
 export default function LastSales() {
   const [sales, setSales] = useState()
-  const [isLoading, setIsLoading] = useState(false)
+  // const [isLoading, setIsLoading] = useState(false)
+
+  const fetcher = (...args) => fetch(...args).then(res => res.json())
+  const { data, error, isLoading } = useSWR(
+    'https://nextjs-clientside-data-fetch-default-rtdb.firebaseio.com/sales.json',
+    fetcher
+  )
 
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true)
-      const res = await fetch(
-        'https://nextjs-clientside-data-fetch-default-rtdb.firebaseio.com/sales.json'
-      )
+    const transformedSalesData = []
 
-      const data = await res.json()
-
-      console.log(data)
-
-      const transformedSalesData = []
-
-      for (const key in data) {
-        transformedSalesData.push({
-          id: key,
-          username: data[key].username,
-          volume: data[key].volume
-        })
-      }
-
-      console.log(transformedSalesData)
-
-      setSales(transformedSalesData)
-      setIsLoading(false)
+    for (const key in data) {
+      transformedSalesData.push({
+        id: key,
+        username: data[key].username,
+        volume: data[key].volume
+      })
     }
 
-    fetchData()
-  }, [])
+    setSales(transformedSalesData)
+  }, [data])
 
-  if (isLoading) {
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setIsLoading(true)
+  //     const res = await fetch(
+  //       'https://nextjs-clientside-data-fetch-default-rtdb.firebaseio.com/sales.json'
+  //     )
+  //
+  //     const data = await res.json()
+  //
+  //     console.log(data)
+  //
+  //     const transformedSalesData = []
+  //
+  //     for (const key in data) {
+  //       transformedSalesData.push({
+  //         id: key,
+  //         username: data[key].username,
+  //         volume: data[key].volume
+  //       })
+  //     }
+  //
+  //     console.log(transformedSalesData)
+  //
+  //     setSales(transformedSalesData)
+  //     setIsLoading(false)
+  //   }
+  //
+  //   fetchData()
+  // }, [])
+
+  if (error) {
     return (
       <div className="fixed inset-0 flex justify-center items-center">
-        <h1 className="text-4xl font-bold">Loading...</h1>
+        <h1 className="text-4xl font-bold">{error}</h1>
       </div>
     )
   }
@@ -46,6 +67,14 @@ export default function LastSales() {
     return (
       <div className="fixed inset-0 flex justify-center items-center">
         <h1 className="text-4xl font-bold">NO DATA YET</h1>
+      </div>
+    )
+  }
+
+  if (isLoading) {
+    return (
+      <div className="fixed inset-0 flex justify-center items-center">
+        <h1 className="text-4xl font-bold">Loading...</h1>
       </div>
     )
   }
