@@ -1,11 +1,19 @@
 import EventList from '@/components/events/event-list'
 import { getFeaturedEvents } from '@/helpers/api-util'
 
+import Head from 'next/head'
+
 export default function Home({ featuredEvents }) {
   return (
-    <div className="p-4 pt-20 max-w-2xl mx-auto">
-      <EventList items={featuredEvents} />
-    </div>
+    <>
+      <Head>
+        <title>NextJS Events</title>
+        <meta name="description" content="Find a lot great events" />
+      </Head>
+      <div className="p-4 pt-20 max-w-2xl mx-auto">
+        <EventList items={featuredEvents} />
+      </div>
+    </>
   )
 }
 
