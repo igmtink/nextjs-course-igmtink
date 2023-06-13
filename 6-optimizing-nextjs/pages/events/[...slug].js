@@ -5,6 +5,7 @@ import { getFilteredEvents } from '@/helpers/api-util'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import useSWR from 'swr'
+import Head from 'next/head'
 
 export default function FilteredEvents({ filteredEvents, hasError, date }) {
   const router = useRouter()
@@ -97,10 +98,16 @@ export default function FilteredEvents({ filteredEvents, hasError, date }) {
   const dateTitle = new Date(numYear, numMonth - 1)
 
   return (
-    <div className="p-4 pt-20 max-w-2xl mx-auto grid grid-cols-1 gap-12">
-      <ResultsTitle date={dateTitle} />
-      <EventList items={filteredEvents} />
-    </div>
+    <>
+      <Head>
+        <title>Filtered Events</title>
+        <meta name="description" content={`All events for ${dateTitle}`} />
+      </Head>
+      <div className="p-4 pt-20 max-w-2xl mx-auto grid grid-cols-1 gap-12">
+        <ResultsTitle date={dateTitle} />
+        <EventList items={filteredEvents} />
+      </div>
+    </>
   )
 }
 
