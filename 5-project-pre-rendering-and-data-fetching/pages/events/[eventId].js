@@ -1,13 +1,28 @@
 import DateIcon from '@/components/icons/date-icon'
 import LocationIcon from '@/components/icons/location-icon'
-import { getAllEvents } from '@/helpers/api-util'
-import { getEventById } from '@/helpers/api-util'
+import {
+  getAllEvents,
+  getEventById,
+  getFeaturedEvents
+} from '@/helpers/api-util'
+import { redirect } from 'next/dist/server/api-utils'
 
-export default function EventDetail({ event }) {
-  if (!event) {
+export default function EventDetail(props) {
+  const event = props.event
+  if (props.notFound) {
     return (
       <div className="fixed inset-0 flex justify-center items-center">
-        <p>No Event Found!</p>
+        <p>NO DATA FOUND!</p>
+      </div>
+    )
+  }
+
+  if (!event) {
+    console.log(event)
+
+    return (
+      <div className="fixed inset-0 flex justify-center items-center">
+        <p>NO DATA YET!</p>
       </div>
     )
   }
@@ -50,7 +65,10 @@ export default function EventDetail({ event }) {
 }
 
 export async function getStaticPaths() {
-  const events = await getAllEvents()
+  // const events = await getAllEvents()
+
+  // Getting only featured events because this item is showing from the starting page so this is always gonna visit that's why we only pre-generate this event and the others will be manual pre-generate using (fallback: true)
+  const events = await getFeaturedEvents()
   const paths = events.map((event) => ({ params: { eventId: event.id } }))
 
   return {
@@ -67,9 +85,23 @@ export async function getStaticProps(context) {
 
   console.log(event)
 
+  if (!event) {
+    return {
+      // notFound: true
+      // redirect: {
+      //   destination: '/error'
+      // }
+      props: {
+        notFound: true
+      }
+    }
+  }
+
   return {
     props: {
       event: event
-    }
+    },
+    // Page Detail should be less duration to pre-generate again because all details on page is important whenever we have changes
+    revalidate: 30
   }
 }
