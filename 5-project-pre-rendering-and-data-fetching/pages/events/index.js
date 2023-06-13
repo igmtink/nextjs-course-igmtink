@@ -52,6 +52,8 @@ export async function getStaticProps() {
   return {
     props: {
       allEvents: allEvents
-    }
+    },
+    // Also in List Page it will be less duration because it will frequently changes
+    revalidate: 60
   }
 }

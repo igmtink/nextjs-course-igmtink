@@ -15,6 +15,8 @@ export async function getStaticProps() {
   return {
     props: {
       featuredEvents: featuredEvents
-    }
+    },
+    // On Featured Page we declare a half hour of duration because Feautred Page is often to have changes
+    revalidate: 1800
   }
 }
