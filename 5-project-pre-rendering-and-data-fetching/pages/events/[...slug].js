@@ -1,37 +1,31 @@
 import ResultsTitle from '@/components/events/results-title.js'
 import EventList from '@/components/events/event-list'
 import { Button } from '@/components/ui/igmtink'
-import { getFilteredEvents } from '@/dummy-data'
+import { getFilteredEvents } from '@/helpers/api-util'
 import { useRouter } from 'next/router'
 
-export default function FilteredEvents() {
-  const router = useRouter()
-  const filteredData = router.query.slug
+export default function FilteredEvents({ filteredEvents, hasError, date }) {
+  // const router = useRouter()
+  // const filteredData = router.query.slug
 
-  if (!filteredData) {
-    return (
-      <div className="fixed inset-0 flex justify-center items-center">
-        <p>Loading...</p>
-      </div>
-    )
-  }
+  // if (!filteredData) {
+  //   return (
+  //     <div className="fixed inset-0 flex justify-center items-center">
+  //       <p>Loading...</p>
+  //     </div>
+  //   )
+  // }
 
-  const filteredYear = filteredData[0]
-  const filteredMonth = filteredData[1]
+  // const filteredYear = filteredData[0]
+  // const filteredMonth = filteredData[1]
 
-  // + sign to convert string into number
-  const numYear = +filteredYear
-  const numMonth = +filteredMonth
+  // // + sign to convert string into number
+  // const numYear = +filteredYear
+  // const numMonth = +filteredMonth
 
-  // isNaN function is to check if the value is not a number
-  if (
-    isNaN(numYear) ||
-    isNaN(numMonth) ||
-    numYear > 2030 ||
-    numYear < 2021 ||
-    numMonth < 0 ||
-    numMonth > 12
-  ) {
+  const { year, month } = date
+
+  if (hasError) {
     return (
       <div className="fixed flex-col gap-4 inset-0 flex justify-center items-center">
         <p>Invalid filter. Please adjust your values!</p>
@@ -39,11 +33,6 @@ export default function FilteredEvents() {
       </div>
     )
   }
-
-  const filteredEvents = getFilteredEvents({
-    year: numYear,
-    month: numMonth
-  })
 
   if (!filteredEvents || filteredEvents.length === 0) {
     return (
@@ -54,12 +43,72 @@ export default function FilteredEvents() {
     )
   }
 
-  const date = new Date(numYear, numMonth - 1)
+  const dateTitle = new Date(year, month - 1)
 
   return (
     <div className="p-4 pt-20 max-w-2xl mx-auto grid grid-cols-1 gap-12">
-      <ResultsTitle date={date} />
+      <ResultsTitle date={dateTitle} />
       <EventList items={filteredEvents} />
     </div>
   )
+}
+
+// export async function getStaticPaths() {
+//   return {
+//     paths: [
+//       {
+//         params: {
+//           slug: ['a', 'b']
+//         }
+//       }
+//     ],
+//     fallback: 'blocking'
+//   }
+// }
+
+export async function getServerSideProps({ params }) {
+  const filteredData = params.slug
+
+  console.log(filteredData)
+
+  const filteredYear = filteredData[0]
+  const filteredMonth = filteredData[1]
+
+  // + sign to convert string into number
+  const numYear = +filteredYear
+  const numMonth = +filteredMonth
+
+  if (
+    isNaN(numYear) ||
+    isNaN(numMonth) ||
+    numYear > 2030 ||
+    numYear < 2021 ||
+    numMonth < 0 ||
+    numMonth > 12
+  ) {
+    return {
+      props: {
+        hasError: true
+      }
+      // notFound: true
+      // redirect: { destination: '/error' }
+    }
+  }
+
+  const events = await getFilteredEvents({
+    year: numYear,
+    month: numMonth
+  })
+
+  console.log(events)
+
+  return {
+    props: {
+      filteredEvents: events,
+      date: {
+        year: numYear,
+        month: numMonth
+      }
+    }
+  }
 }
