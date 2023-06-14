@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 import DateIcon from '@/components/icons/date-icon'
 import LocationIcon from '@/components/icons/location-icon'
 import {
@@ -37,11 +39,17 @@ export default function EventDetail(props) {
 
   return (
     <div className="pt-14">
-      <img
+      <Image
+        src={`/${event.image}`}
+        alt={event.title}
+        width={160}
+        height={160}
+      />
+      {/* <img
         className="object-cover w-full sm:h-80 md:h-96"
         src={`/${event.image}`}
         alt={event.title}
-      />
+      /> */}
       <div className="p-4">
         <h1 className="font-bold text-2xl uppercase text-center mb-6">
           {event.title}
